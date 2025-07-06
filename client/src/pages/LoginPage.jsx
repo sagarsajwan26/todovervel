@@ -1,31 +1,52 @@
-import React from 'react'
-import { useState } from 'react'
-import { axiosInstance } from '../utils/axios'
+import React, { useState } from 'react'
+
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { adminLogin } from '../store/adminThunk'
 
 function LoginPage() {
-    const [username, setUsername]= useState('')
-    const [password, setPassword]= useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const navigate= useNavigate()
+  const dispatch= useDispatch()
 
-    const handleLogin=async(e)=>{
-        e.preventDefault()
-        const res= await axiosInstance.post('/admin/loginAdmin',{username,password})
-        console.log(res);
-        
+  const handleLogin = async (e) => {
+    e.preventDefault()
+    try {
+      const res= await dispatch(adminLogin({username,password}))
+      console.log(res);
+      
+      if(res?.payload){
+        navigate("/taskboard")
+      }
+    } catch (error) {
+      console.log(error)
     }
+  }
+
   return (
-    <div>
-<form action="" onSubmit={handleLogin}>
-    
-        <input type="text" value={username} 
-        onChange={(e)=> setUsername(e.target.value)}
+    <div className="login-container">
+      <form className="login-form" onSubmit={handleLogin}>
+        <input
+          className="login-input"
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={e => setUsername(e.target.value)}
         />
-        <input type="password" value={password} 
-        onChange={(e)=> setPassword(e.target.value)}
+        <input
+          className="login-input"
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
         />
-        <button 
-        
-        type="submit">Login</button>
-</form>
+        <button className="login-btn" type="submit">Login</button>
+        <p className="login-link">
+          Don't have an account?
+          <Link to='/signup'>Create account</Link>
+        </p>
+      </form>
     </div>
   )
 }

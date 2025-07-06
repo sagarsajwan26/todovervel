@@ -78,7 +78,7 @@ export const loginAdmin = AsyncHandler(async (req, res) => {
     // console.log(req.body);
     
     const { username, password } = req.body;
-    if (!username?.trim() || !password?.trim()) {
+    if (!username.trim() || !password.trim()) {
         throw new ApiError(400, 'fields cannot be empty');
     }
 
@@ -91,7 +91,13 @@ export const loginAdmin = AsyncHandler(async (req, res) => {
 const token = await generateToken(admin._id)
 if(!token) throw new ApiError(401,'internal server error')
 
-    return res.status(200).cookie('accessToken', token).json(new ApiResponse(200, { admin }, 'login successful'));
+    return res.status(200).cookie('accessToken', token,{
+       httpOnly: true,         
+  secure: true,         
+  sameSite: "Strict",     
+  maxAge: 24 * 60 * 60 * 1000
+        
+    }).json(new ApiResponse(200, { admin ,token }, 'login successful'));
 });
 
 
