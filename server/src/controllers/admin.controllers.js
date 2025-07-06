@@ -32,10 +32,10 @@ export const createAdmin=AsyncHandler(async(req,res)=>{
         
         
         const  checkIfUser= await Admin.findOne({$or:[{username},{email}]})
-        console.log(checkIfUser);
+       
         
         
-        if(!checkIfUser) throw new ApiError(401,'already an user')
+        if(checkIfUser) throw new ApiError(401,'already an user')
             const newAdmin = await Admin.create({
         name ,
         username,
