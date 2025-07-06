@@ -20,9 +20,9 @@ builder.addCase(adminLogin.pending,(state,action)=>{
         state.adminData= null
 })
 builder.addCase(adminLogin.fulfilled,(state,action)=>{
-console.log(action.payload);
-    state.adminData= action.payload
 
+    state.adminData= action.payload.admin
+    localStorage.setItem('token',action.payload.token)
 })
 builder.addCase(adminLogin.rejected,(state,action)=>{
 state.isLoggedIn= false
