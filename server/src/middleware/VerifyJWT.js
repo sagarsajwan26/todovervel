@@ -5,7 +5,7 @@ export const verifyJWT= (req,res,next)=>{
   console.log(req.cookies);
   
     
-    const accessToken =req.headers.authorization?.split(" ")[1] || req.cookies.accessToken 
+    const accessToken = req.headers.authorization?.startsWith('Bearer ')? req.headers.authorization?.split(" ")[1] : req.cookies?.accessToken 
     
     
     if(!accessToken) throw new ApiError(400,"access token is missing")
