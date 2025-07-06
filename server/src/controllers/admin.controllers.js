@@ -26,7 +26,7 @@ const generateToken = async(id)=>{
 
 export const createAdmin=AsyncHandler(async(req,res)=>{
     const {name , email , username, password} = req.body
-    if(!email.trim|| !name.trim()|| !username.trim()|| !password.trim) throw new ApiError(400,'fields cannot be empty')
+    if(!email.trim()|| !name.trim()|| !username.trim()|| !password.trim) throw new ApiError(400,'fields cannot be empty')
        
         
         const  checkIfUser= await Admin.find({$or:[{username},{email}]})
