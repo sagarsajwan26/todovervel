@@ -9,7 +9,7 @@ const generateToken = async(id)=>{
     if(!id) throw new ApiError(401,"no  user id found")
         try {
             const admin = await Admin.findById(id)
-            if(!admin) throw new Error(401,'sorry you are not authorize');
+            if(!admin) throw new ApiError(401,'sorry you are not authorize');
        
             
             const accessToken= await admin.generateAccessToken()
@@ -26,10 +26,10 @@ const generateToken = async(id)=>{
 
 export const createAdmin=AsyncHandler(async(req,res)=>{
     const {name , email , username, password} = req.body
-    if(!email.trim()|| !name.trim()|| !username.trim()|| !password.trim) throw new ApiError(400,'fields cannot be empty')
+    if(!email.trim()|| !name.trim()|| !username.trim()|| !password.trim( )) throw new ApiError(400,'fields cannot be empty')
        
         
-        const  checkIfUser= await Admin.find({$or:[{username},{email}]})
+        const  checkIfUser= await Admin.findOne({$or:[{username},{email}]})
         
         
         if(!checkIfUser) throw new ApiError(401,'already an user')
@@ -95,7 +95,7 @@ export const loginAdmin = AsyncHandler(async (req, res) => {
 const token = await generateToken(admin._id)
 if(!token) throw new ApiError(401,'internal server error')
 
-    return res.status(200).cookie('accessToken',token).json(new ApiResponse(200, { admin }, 'login successful'));
+    return res.status(200).cookie('accessToken', token).json(new ApiResponse(200, { admin }, 'login successful'));
 });
 
 
