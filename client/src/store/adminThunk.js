@@ -1,6 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { axiosInstance } from "../utils/axios";
 
+
+export const createAdmin= createAsyncThunk('/admin/signup',async(data)=>{
+    console.log(data);
+    
+    try {
+        const res= await axiosInstance.post('/admin/createAdmin',data)
+    } catch (error) {
+    console.log(error);
+        
+    }
+})
+
 export const adminLogin= createAsyncThunk('/admin/login',async(data)=>{
    
     
