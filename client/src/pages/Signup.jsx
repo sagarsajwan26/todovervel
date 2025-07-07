@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { createAdmin } from '../store/adminThunk';
+import {Link} from 'react-router-dom'
 
 function Signup() {
   const dispatch = useDispatch();
@@ -58,6 +59,7 @@ function Signup() {
             className="signup-input"
           />
           <button type="submit" className="signup-button">Signup</button>
+        <p className='signupLink'> already have an account?  <Link to='/' className='signuplink'>login</Link></p>
         </form>
       </div>
     </div>

@@ -179,13 +179,9 @@ background-color: rgb(48, 179, 48);
 }
 
 
- body {
-  background-color: #121212;
-  color: #f0f0f0;
-  font-family: sans-serif;
-}
 
 .assignTask-container {
+ 
   height: 80vh;
 
   width: 100%;
@@ -239,12 +235,12 @@ background-color: rgb(48, 179, 48);
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #f3f3f3;
+  background-color: #000000;
   padding: 20px;
 }
 
 .signup-box {
-  background-color: #ffffff;
+  background-color: #000000;
   padding: 24px;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -279,4 +275,16 @@ background-color: rgb(48, 179, 48);
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.signupLink{
+  color:#ffffff;
+  padding-top: 20px;
+}
+.signuplink{
+  
+  color:#ffffff
+}
+.signuplink:hover{
+  color:#12d4ff
 }
