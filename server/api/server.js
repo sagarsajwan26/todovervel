@@ -12,11 +12,20 @@ const app= express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
+
 app.use(cors({
-    origin:process.env.CORS_ORIGIN,
-    credentials:true,
-    methods:['POST','PATCH','PUT','DELETE']
-}))
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['POST', 'PATCH', 'PUT', 'DELETE'],
+}));
+
 
 app.use('/api/v1/admin',adminRouter)
 
