@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { assignTask, editTask, getTasks } from '../store/adminThunk'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 function AssignTask() {
     const users= useSelector(state=> state.adminSlice.users)
@@ -10,7 +10,7 @@ function AssignTask() {
     
     const DataToEdit= location?.state?.item
 
-
+const navigate= useNavigate()
    
     
     const [task,setTask] = useState({
@@ -48,6 +48,7 @@ useEffect(()=>{
                 await dispatch(assignTask(task))
         }
             await dispatch(getTasks())
+              navigate('/taskboard')
     }
     
     console.log(task);
