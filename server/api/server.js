@@ -12,19 +12,13 @@ const app= express()
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
-const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || [];
 
 app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
+  origin:["https://todovervel-b9ic.vercel.app","http://localhost:5173"]
   credentials: true,
   methods: ['POST', 'PATCH', 'PUT', 'DELETE'],
 }));
+
 
 
 app.use('/api/v1/admin',adminRouter)
