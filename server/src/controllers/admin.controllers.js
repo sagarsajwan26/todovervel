@@ -189,3 +189,14 @@ export const getTaskForEdit=AsyncHandler(async(req,res)=>{
         return res.status(200).json(new ApiResponse(200,{task},'task found'))
     })
 
+
+
+    export const logoutAdmin= AsyncHandler(async(req,res)=>{
+        const loginAdmin=  req.user.id 
+        const findAdmin = await Admin.findById(loginAdmin)
+        if(!findAdmin) return res.status(404).json('you must login first')
+        return res.staus(200).cookie('accessToken', '').json({
+            msg:"successfully logout"
+        })
+
+})

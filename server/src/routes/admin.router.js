@@ -1,5 +1,5 @@
 import Router from 'express' 
-import { assignTask, createAdmin, createUser, deleteTask, getAdminTasks, getTaskForEdit, getUser, loginAdmin, updateTask } from '../controllers/admin.controllers.js'
+import { assignTask, createAdmin, createUser, deleteTask, getAdminTasks, getTaskForEdit, getUser, loginAdmin, logoutAdmin, updateTask } from '../controllers/admin.controllers.js'
 import { verifyJWT } from '../middleware/VerifyJWT.js'
 const router = Router()
 
@@ -12,7 +12,7 @@ router.route('/:taskId/updateTask').patch(verifyJWT,updateTask)
 router.route('/getTasks').get(verifyJWT,getAdminTasks)
 router.route('/getusers').get(verifyJWT,getUser)
 router.route('/:taskId/getParticularTask').get(getTaskForEdit)
-
+router.route('/logout').get(verifyJWT,logoutAdmin)
 
 
 export default router 

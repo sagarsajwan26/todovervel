@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux'
 import { adminLogin } from '../store/adminThunk'
 
 function LoginPage() {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState('sagar')
+  const [password, setPassword] = useState('1')
   const navigate= useNavigate()
   const dispatch= useDispatch()
 

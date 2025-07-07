@@ -1,5 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom'
+import { logoutAdmin } from '../store/adminThunk';
 
 function TaskboardSidebar() {
   const links = [
@@ -12,7 +14,13 @@ function TaskboardSidebar() {
       path: "/taskboard/assign"
     }
   ];
-
+const dispatch= useDispatch()
+const navigate= useNavigate()
+const handleLogout=async()=>{
+  await dispatch(logoutAdmin())
+  localStorage.removeItem('token')
+    navigate('/')
+}
   return (
     <div className="sidebar-container">
       <h1 className="logo">LOGO</h1>
@@ -25,7 +33,9 @@ function TaskboardSidebar() {
         ))}
       </div>
 
-      <button className="logout-btn">Logout</button>
+      <button 
+      onClick={()=>handleLogout()}
+      className="logout-btn">Logout</button>
     </div>
   )
 }
