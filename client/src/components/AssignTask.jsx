@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 function AssignTask() {
     const users= useSelector(state=> state.adminSlice.users)
     const location= useLocation()
+    const [loading, setLoading ]= useState(false)
    
     
     const DataToEdit= location?.state?.item
@@ -40,15 +41,23 @@ useEffect(()=>{
 
     const handleOnSubmit=async (e)=>{
         e.preventDefault()
-        if(DataToEdit){
-            await dispatch(editTask({id:DataToEdit._id, data:task}))
-            
-        }
-        else {
-                await dispatch(assignTask(task))
-        }
-            await dispatch(getTasks())
-              navigate('/taskboard')
+       try {
+         setLoading(true)
+         if(DataToEdit){
+             await dispatch(editTask({id:DataToEdit._id, data:task}))
+             
+         }
+         else {
+                 await dispatch(assignTask(task))
+         }
+             await dispatch(getTasks())
+               navigate('/taskboard')
+       } catch (error) {
+        console.log(error);
+        
+       } finally{
+        setLoading(false)
+       }
     }
     
     console.log(task);
@@ -115,10 +124,11 @@ useEffect(()=>{
         </select>
 
         <button
+        disabled={loading}
           className="assignTask-button"
           onClick={handleOnSubmit}
         >
-          {DataToEdit ? 'Update Task' : 'Assign Task'}
+          {loading? "assigning task":'asign /update task'}
         </button>
       </form>
     </div>
